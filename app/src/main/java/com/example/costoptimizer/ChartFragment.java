@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.costoptimizer.Models.PurchaseModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,8 +44,7 @@ public class ChartFragment extends Fragment {
         ContactDbHelper contactDbHelper = new ContactDbHelper(getActivity());
         SQLiteDatabase database = contactDbHelper.getReadableDatabase();
 
-        Cursor cursor = contactDbHelper.readPurchase(database);
-
+        List<PurchaseModel> purchases = contactDbHelper.getAllPurchases(database);
 
 
         pieChart = view.findViewById(R.id.piechart);
@@ -60,12 +61,9 @@ public class ChartFragment extends Fragment {
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        yValues.add(new PieEntry(10,"Хлеб"));
-        yValues.add(new PieEntry(20,"Картошка"));
-        yValues.add(new PieEntry(30,"Сахар"));
-        yValues.add(new PieEntry(40,"Порошёк"));
-        yValues.add(new PieEntry(50,"Кафе"));
-        yValues.add(new PieEntry(60,"Одежда"));
+        for (PurchaseModel purchase : purchases) {
+            yValues.add(new PieEntry(Integer.parseInt(purchase.quantity), purchase.name));
+        }
 
         Description description = new Description();
         description.setText("Диаграмма затрат");
@@ -74,7 +72,7 @@ public class ChartFragment extends Fragment {
 
         pieChart.animateY(1500, Easing.EaseOutCubic);
 
-        PieDataSet dataSet = new PieDataSet(yValues,"");
+        PieDataSet dataSet = new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
@@ -86,13 +84,8 @@ public class ChartFragment extends Fragment {
         pieChart.setData(data);
 
 
-
-
         return view;
     }
-
-
-
 
 
 }
