@@ -19,10 +19,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GraphFragment extends Fragment {
 
     private static final String TAG = "MainActivity";

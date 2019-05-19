@@ -3,6 +3,7 @@ package com.example.costoptimizer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.costoptimizer.activities.MyPurchasesActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class HomeFragment extends Fragment  implements View.OnClickListener{
     private Button BtnDiagram;
     private Button BnGraph;
@@ -57,7 +57,8 @@ public class HomeFragment extends Fragment  implements View.OnClickListener{
         switch (view.getId())
         {
             case R.id.btn_my_purchases:
-                dbOpListener.dbOpPerformed(0);
+                Intent intent = new Intent(getContext(), MyPurchasesActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_see_diagram:
                 dbOpListener.dbOpPerformed(4);

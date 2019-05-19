@@ -1,11 +1,12 @@
-package com.example.costoptimizer.Models;
+package com.example.costoptimizer.models;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class PurchaseModel {
+public class PurchaseModel implements Serializable {
 
     @DatabaseField(generatedId = true)
     public Integer id;
