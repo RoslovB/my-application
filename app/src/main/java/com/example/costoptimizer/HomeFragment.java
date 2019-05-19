@@ -15,7 +15,9 @@ import android.widget.Button;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment  implements View.OnClickListener{
-    private Button BnSave,BnView,BnDelete,BnUpdate,BnDiagram,BnGraph,BnAdvice;
+    private Button BtnDiagram;
+    private Button BnGraph;
+    private Button BtnAdvice;
     OnDbOpListener dbOpListener;
 
 
@@ -35,26 +37,17 @@ public class HomeFragment extends Fragment  implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        BnSave = view.findViewById(R.id.bn_add_purchase);
-        BnSave.setOnClickListener(this);
-        BnView = view.findViewById(R.id.bn_view_list);
-        BnView.setOnClickListener(this);
+        Button btnMyPurchases = view.findViewById(R.id.btn_my_purchases);
+        btnMyPurchases.setOnClickListener(this);
 
-        BnUpdate = view.findViewById(R.id.bn_update_purchase);
-        BnUpdate.setOnClickListener(this);
+        BtnDiagram = view.findViewById(R.id.btn_see_diagram);
+        BtnDiagram.setOnClickListener(this);
 
-        BnDelete = view.findViewById(R.id.bn_delete_purchase);
-        BnDelete.setOnClickListener(this);
-
-
-        BnDiagram = view.findViewById(R.id.bn_see_diagram);
-        BnDiagram.setOnClickListener(this);
-
-        BnGraph = view.findViewById(R.id.bn_see_graph);
+        BnGraph = view.findViewById(R.id.btn_see_graph);
         BnGraph.setOnClickListener(this);
 
-        BnAdvice = view.findViewById(R.id.bn_advice);
-        BnAdvice.setOnClickListener(this);
+        BtnAdvice = view.findViewById(R.id.btn_advice);
+        BtnAdvice.setOnClickListener(this);
         return view;
     }
 
@@ -63,25 +56,16 @@ public class HomeFragment extends Fragment  implements View.OnClickListener{
 
         switch (view.getId())
         {
-            case R.id.bn_add_purchase:
+            case R.id.btn_my_purchases:
                 dbOpListener.dbOpPerformed(0);
                 break;
-            case R.id.bn_view_list:
-                dbOpListener.dbOpPerformed(1);
-                break;
-            case R.id.bn_update_purchase:
-                dbOpListener.dbOpPerformed(2);
-                break;
-            case R.id.bn_delete_purchase:
-                dbOpListener.dbOpPerformed(3);
-                break;
-            case R.id.bn_see_diagram:
+            case R.id.btn_see_diagram:
                 dbOpListener.dbOpPerformed(4);
                 break;
-            case R.id.bn_see_graph:
+            case R.id.btn_see_graph:
                 dbOpListener.dbOpPerformed(5);
                 break;
-            case R.id.bn_advice:
+            case R.id.btn_advice:
                 dbOpListener.dbOpPerformed(6);
                 break;
 

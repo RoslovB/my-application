@@ -1,7 +1,6 @@
 package com.example.costoptimizer;
 
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,10 +40,7 @@ public class ChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
 
 
-        ContactDbHelper contactDbHelper = new ContactDbHelper(getActivity());
-        SQLiteDatabase database = contactDbHelper.getReadableDatabase();
 
-        List<PurchaseModel> purchases = contactDbHelper.getAllPurchases(database);
 
 
         pieChart = view.findViewById(R.id.piechart);
@@ -61,9 +57,6 @@ public class ChartFragment extends Fragment {
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-        for (PurchaseModel purchase : purchases) {
-            yValues.add(new PieEntry(Integer.parseInt(purchase.quantity), purchase.name));
-        }
 
         Description description = new Description();
         description.setText("Диаграмма затрат");
