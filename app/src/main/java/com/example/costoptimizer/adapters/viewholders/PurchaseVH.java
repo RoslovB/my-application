@@ -1,5 +1,6 @@
 package com.example.costoptimizer.adapters.viewholders;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
@@ -7,7 +8,6 @@ import com.example.costoptimizer.interfaces.ClickableHolderListener;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
 
-import androidx.annotation.NonNull;
 
 public class PurchaseVH extends ClickableViewHolder {
     private TextView nameTextView, countTextView;

@@ -1,5 +1,6 @@
 package com.example.costoptimizer.adapters;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.adapters.viewholders.PurchaseVH;
 
-import androidx.annotation.NonNull;
 
 public class PurchasesAdapter extends ClickableRecyclerAdapter<PurchaseModel, PurchaseVH> {
 
