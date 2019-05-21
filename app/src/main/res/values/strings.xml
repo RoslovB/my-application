@@ -6,4 +6,11 @@
     <string name="textView">Добавьте новые покупки</string>
     <string name="id">ID</string>
     <string name="my_purchases">Мои покупки</string>
+    <string name="name2">Название</string>
+    <string name="add">Добавить</string>
+    <string name="count">Количество</string>
+    <string name="store">Магазин</string>
+    <string name="cost">Цена</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="purchase_added">Покупка добавлена</string>
 </resources>

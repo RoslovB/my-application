@@ -1,5 +1,6 @@
 package com.example.costoptimizer.adapters.viewholders;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -8,18 +9,27 @@ import com.example.costoptimizer.interfaces.ClickableHolderListener;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
 
+import java.text.SimpleDateFormat;
+
 
 public class PurchaseVH extends ClickableViewHolder {
-    private TextView nameTextView, countTextView;
+    private TextView nameTextView, countTextView, costTextView, storeTW, dateTW;
 
     public PurchaseVH(@NonNull View itemView, ClickableHolderListener listener) {
         super(itemView, listener);
         nameTextView = itemView.findViewById(R.id.purchase_name);
         countTextView = itemView.findViewById(R.id.purchase_count);
+        costTextView = itemView.findViewById(R.id.purchase_cost);
+        storeTW = itemView.findViewById(R.id.purchase_store);
+        dateTW = itemView.findViewById(R.id.purchase_date);
     }
 
-    public void bind(PurchaseModel purchase){
+    @SuppressLint("SimpleDateFormat")
+    public void bind(PurchaseModel purchase) {
         nameTextView.setText(purchase.name);
-        countTextView.setText(purchase.count);
+        storeTW.setText(purchase.store);
+        countTextView.setText(String.valueOf(purchase.count));
+        costTextView.setText(String.valueOf(purchase.cost));
+        dateTW.setText(new SimpleDateFormat("dd.MM.YYYY").format(purchase.date));
     }
 }

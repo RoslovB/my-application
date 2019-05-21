@@ -15,7 +15,7 @@ public class PurchaseModel implements Serializable {
     public String name;
 
     @DatabaseField
-    public String count;
+    public int count;
 
     @DatabaseField
     public Date date;
@@ -24,14 +24,13 @@ public class PurchaseModel implements Serializable {
     public String store;
 
     @DatabaseField
-    public String cost;
+    public int cost;
 
-    public PurchaseModel(){
+    public PurchaseModel() {
 
     }
 
-    public PurchaseModel(String name, String count, Date date, String store, String cost) {
-        super();
+    public PurchaseModel(String name, int cost, int count, String store, Date date) {
         this.name = name;
         this.count = count;
         this.date = date;

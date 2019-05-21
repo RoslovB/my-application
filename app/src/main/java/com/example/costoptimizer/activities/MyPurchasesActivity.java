@@ -1,9 +1,13 @@
 package com.example.costoptimizer.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.costoptimizer.DatabaseHelper;
@@ -47,12 +51,41 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
     }
 
     @Override
+    protected void onResume() {
+        try {
+            adapter.items = dbHelper.getPurchaseModelDao().queryForAll();
+            adapter.notifyDataSetChanged();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        super.onResume();
+    }
+
+    @Override
     public void onAdapterItemClick(PurchaseModel item) {
         Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public Boolean onAdapterItemLongClick(PurchaseModel item) {
-        return null;
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.purchase_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.add_purchase_option) {
+            Intent intent = new Intent(this, AddPurchaseActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
