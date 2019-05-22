@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.costoptimizer.Constants;
 import com.example.costoptimizer.DatabaseHelper;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
@@ -19,6 +21,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
 
+import static com.example.costoptimizer.Constants.PURCHASE_KEY;
 
 
 public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterItemClickListener<PurchaseModel> {
@@ -67,8 +70,30 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
     }
 
     @Override
-    public Boolean onAdapterItemLongClick(PurchaseModel item) {
-        return false;
+    public Boolean onAdapterItemLongClick(final PurchaseModel item) {
+        CustomDialog.showDialog(this,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MyPurchasesActivity.this, AddPurchaseActivity.class);
+                        intent.putExtra(PURCHASE_KEY, item);
+                        startActivity(intent);
+                    }
+                },
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            dbHelper.getPurchaseModelDao().delete(item);
+                            adapter.items = dbHelper.getPurchaseModelDao().queryForAll();
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(MyPurchasesActivity.this, "Запись удалена", Toast.LENGTH_SHORT).show();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        return true;
     }
 
     @Override

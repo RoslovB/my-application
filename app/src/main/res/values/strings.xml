@@ -13,4 +13,5 @@
     <string name="cost">Цена</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="purchase_added">Покупка добавлена</string>
+    <string name="purchase_edited">Покупка изменена</string>
 </resources>

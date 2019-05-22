@@ -33,10 +33,6 @@ public class ChartFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
 
-
-
-
-
         pieChart = view.findViewById(R.id.piechart);
 
         pieChart.setUsePercentValues(true);

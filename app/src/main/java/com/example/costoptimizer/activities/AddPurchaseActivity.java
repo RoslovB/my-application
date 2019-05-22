@@ -14,8 +14,11 @@ import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
+import static com.example.costoptimizer.Constants.PURCHASE_KEY;
 import static com.example.costoptimizer.Utils.getDateFromDatePicker;
 
 public class AddPurchaseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,6 +26,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
     EditText nameET, costET, countET, storeET;
     DatePicker dateDP;
     Button addBtn;
+    PurchaseModel purchase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,19 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
         dateDP = findViewById(R.id.add_purchase_date);
         addBtn = findViewById(R.id.add_purchase_btn);
         addBtn.setOnClickListener(this);
+
+        try {
+            purchase = (PurchaseModel) getIntent().getExtras().get(PURCHASE_KEY);
+            nameET.setText(purchase.name);
+            storeET.setText(purchase.store);
+            costET.setText(String.valueOf(purchase.cost));
+            countET.setText(String.valueOf(purchase.count));
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(purchase.date);
+            dateDP.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);
+        } catch (Exception e) {
+            purchase = new PurchaseModel();
+        }
     }
 
 
@@ -51,9 +68,11 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
         int count = Integer.parseInt(countET.getText().toString());
         Date date = getDateFromDatePicker(dateDP);
 
+        purchase.setData(name, cost, count, store, date);
+
         try {
-            dbHelper.getPurchaseModelDao().create(new PurchaseModel(name, cost, count, store, date));
-            Toast.makeText(this, getString(R.string.purchase_added), Toast.LENGTH_SHORT).show();
+            dbHelper.getPurchaseModelDao().createOrUpdate(purchase);
+            Toast.makeText(this, getString(purchase.id != null ? R.string.purchase_edited : R.string.purchase_added), Toast.LENGTH_SHORT).show();
             finish();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -37,4 +37,12 @@ public class PurchaseModel implements Serializable {
         this.store = store;
         this.cost = cost;
     }
+
+    public void setData(String name, int cost, int count, String store, Date date) {
+        this.name = name;
+        this.count = count;
+        this.date = date;
+        this.store = store;
+        this.cost = cost;
+    }
 }
