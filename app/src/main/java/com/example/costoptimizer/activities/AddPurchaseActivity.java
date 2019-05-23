@@ -27,6 +27,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
     DatePicker dateDP;
     Button addBtn;
     PurchaseModel purchase;
+    boolean isEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,10 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(purchase.date);
             dateDP.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);
+            isEditing = true;
         } catch (Exception e) {
             purchase = new PurchaseModel();
+            isEditing = false;
         }
     }
 
@@ -72,7 +75,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
 
         try {
             dbHelper.getPurchaseModelDao().createOrUpdate(purchase);
-            Toast.makeText(this, getString(purchase.id != null ? R.string.purchase_edited : R.string.purchase_added), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(isEditing ? R.string.purchase_edited : R.string.purchase_added), Toast.LENGTH_SHORT).show();
             finish();
         } catch (SQLException e) {
             e.printStackTrace();
