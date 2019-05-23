@@ -10,6 +10,7 @@ import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 public class PurchaseVH extends ClickableViewHolder {
@@ -30,6 +31,6 @@ public class PurchaseVH extends ClickableViewHolder {
         storeTW.setText(purchase.store);
         countTextView.setText(String.valueOf(purchase.count));
         costTextView.setText(String.valueOf(purchase.cost));
-        dateTW.setText(new SimpleDateFormat("dd.MM.YYYY").format(purchase.date));
+        dateTW.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH).format(purchase.date));
     }
 }
