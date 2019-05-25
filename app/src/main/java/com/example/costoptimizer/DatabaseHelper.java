@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME = "cost_optimizer.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private Dao<PurchaseModel, Integer> purchaseModelDao = null;
 
 

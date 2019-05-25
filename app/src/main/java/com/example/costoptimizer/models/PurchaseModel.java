@@ -15,34 +15,45 @@ public class PurchaseModel implements Serializable {
     public String name;
 
     @DatabaseField
+    public PurchaseCategory category;
+
+    @DatabaseField
+    public int cost;
+
+    @DatabaseField
     public int count;
 
     @DatabaseField
     public Date date;
 
     @DatabaseField
-    public String store;
+    public int importance;
 
-    @DatabaseField
-    public int cost;
 
     public PurchaseModel() {
 
     }
 
-    public PurchaseModel(String name, int cost, int count, String store, Date date) {
+    public PurchaseModel(String name, PurchaseCategory category, int cost, int count, Date date, int importance) {
         this.name = name;
+        this.category = category;
+        this.cost = cost;
         this.count = count;
         this.date = date;
-        this.store = store;
-        this.cost = cost;
+        this.importance = importance;
     }
 
-    public void setData(String name, int cost, int count, String store, Date date) {
+    public void setData(String name, PurchaseCategory category, int cost, int count, Date date, int importance) {
         this.name = name;
+        this.category = category;
+        this.cost = cost;
         this.count = count;
         this.date = date;
-        this.store = store;
-        this.cost = cost;
+        this.importance = importance;
     }
+
+
+
+
+
 }

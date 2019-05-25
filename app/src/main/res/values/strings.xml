@@ -14,4 +14,8 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="purchase_added">Покупка добавлена</string>
     <string name="purchase_edited">Покупка изменена</string>
+    <string name="choose_importance_of_purchase">Определите важность покупки</string>
+    <string name="choose_purchase_category">Выберите категорию товара</string>
+    <string name="purchase_name">Название покупки</string>
+    <string name="cherry_pie">Вишневый пирог</string>
 </resources>
