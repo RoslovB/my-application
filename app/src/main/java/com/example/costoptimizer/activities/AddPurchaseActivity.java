@@ -74,6 +74,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
             nameET.setText(purchase.name);
             costET.setText(String.valueOf(purchase.cost));
             countET.setText(String.valueOf(purchase.count));
+            importanceSB.setProgress(purchase.importance);
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(purchase.date);
             dateDP.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);

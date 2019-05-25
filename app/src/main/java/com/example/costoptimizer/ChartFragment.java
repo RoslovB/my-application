@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.costoptimizer.models.PurchaseCategory;
+import com.example.costoptimizer.models.PurchaseModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -15,12 +17,16 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChartFragment extends Fragment {
     PieChart pieChart;
+    DatabaseHelper dbHelper;
 
     public ChartFragment() {
         // Required empty public constructor
@@ -44,15 +50,26 @@ public class ChartFragment extends Fragment {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(61f);
+        List<PurchaseModel> purchases = new ArrayList<>();
+        dbHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
+        try {
+            purchases = dbHelper.getPurchaseModelDao().queryForAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 
-
-        Description description = new Description();
-        description.setText("Диаграмма затрат");
-        description.setTextSize(9);
-        pieChart.setDescription(description);
-
+        for (PurchaseCategory category : PurchaseCategory.values()) {
+            int count = 0;
+            for (PurchaseModel purchaseModel : purchases) {
+                if (purchaseModel.category == category) {
+                    count++;
+                }
+            }
+            if (count > 0)
+                yValues.add(new PieEntry(count, category.toString()));
+        }
         pieChart.animateY(1500, Easing.EaseOutCubic);
 
         PieDataSet dataSet = new PieDataSet(yValues, "");
@@ -65,7 +82,6 @@ public class ChartFragment extends Fragment {
         data.setValueTextColor(Color.YELLOW);
 
         pieChart.setData(data);
-
 
         return view;
     }
