@@ -18,4 +18,5 @@
     <string name="choose_purchase_category">Выберите категорию товара</string>
     <string name="purchase_name">Название покупки</string>
     <string name="cherry_pie">Вишневый пирог</string>
+    <string name="set_purchase_date">Укажите дату покупки</string>
 </resources>

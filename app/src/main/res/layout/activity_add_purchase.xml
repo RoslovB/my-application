@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
-    android:paddingBottom="20dp"
     tools:context=".activities.AddPurchaseActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -16,7 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
 
 
             <LinearLayout
@@ -118,25 +119,59 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/choose_importance_of_purchase" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/choose_importance_of_purchase"
+                        android:layout_alignParentStart="true" />
+                    <TextView
+                        android:id="@+id/add_purchase_importance_value"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="0"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
 
                 <SeekBar
                     android:id="@+id/add_purchase_importance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxHeight="3dp"
+                    android:minHeight="3dp"
+                    android:progressDrawable="@drawable/progress"
                     android:max="10" />
             </LinearLayout>
 
-            <DatePicker
-                android:id="@+id/add_purchase_date"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/white_rounded_bordered_bg"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/set_purchase_date"
+                     />
+
+                <DatePicker
+                    android:id="@+id/add_purchase_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner" />
+            </LinearLayout>
+
 
             <Button
                 style="@style/CustomButton"

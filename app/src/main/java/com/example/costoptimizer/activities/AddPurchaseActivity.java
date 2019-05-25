@@ -1,5 +1,6 @@
 package com.example.costoptimizer.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.costoptimizer.DatabaseHelper;
@@ -33,6 +35,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
     EditText nameET, costET, countET;
     DatePicker dateDP;
     Button addBtn;
+    TextView importanceValue;
     SeekBar importanceSB;
     Spinner categoryS;
     boolean isEditing, isButtonActive;
@@ -57,6 +60,7 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
         categoryS = findViewById(R.id.add_purchase_category);
         importanceSB = findViewById(R.id.add_purchase_importance);
         importanceSB.setOnSeekBarChangeListener(this);
+        importanceValue = findViewById(R.id.add_purchase_importance_value);
         addBtn.setOnClickListener(this);
 
         ArrayAdapter<PurchaseCategory> dataAdapter = new ArrayAdapter<>(this,
@@ -104,6 +108,8 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         purchase.importance = progress;
+        importanceValue.setText(String.valueOf(progress));
+
     }
 
     @Override
