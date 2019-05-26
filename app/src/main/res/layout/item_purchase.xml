@@ -1,44 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/rounded_shadowed_white_bg"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginEnd="10dp"
     android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rounded_shadowed_white_bg"
     android:minHeight="32dp"
     android:orientation="vertical"
-    android:paddingStart="20dp"
+    android:paddingStart="12dp"
     android:paddingTop="10dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="10dp"
-    android:layout_marginEnd="10dp">
+    android:paddingEnd="12dp"
+    android:paddingBottom="10dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/purchase_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_exercise" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/purchase_name"
+                    style="@style/text_black_16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Apple" />
 
 
-    <TextView
-        android:id="@+id/purchase_name"
-        style="@style/text_black_16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Apple"/>
+            </LinearLayout>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/purchase_cost"
-        style="@style/text_black_16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="50"/>
-    <TextView
-        android:id="@+id/purchase_count"
-        style="@style/text_black_16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="4"/>
-    <TextView
-        android:id="@+id/purchase_date"
-        style="@style/text_black_16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="20.05.2019"/>
+        <TextView
+            android:layout_gravity="right"
+            android:id="@+id/purchase_cost"
+            style="@style/text_black_16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250"
+            android:textColor="#D81616"
+            />
+
+    </FrameLayout>
+
 
 
 </LinearLayout>
