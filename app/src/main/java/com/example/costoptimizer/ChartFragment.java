@@ -50,13 +50,8 @@ public class ChartFragment extends Fragment {
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleRadius(61f);
-        List<PurchaseModel> purchases = new ArrayList<>();
         dbHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
-        try {
-            purchases = dbHelper.getPurchaseModelDao().queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        List<PurchaseModel> purchases = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
 
         ArrayList<PieEntry> yValues = new ArrayList<>();
 

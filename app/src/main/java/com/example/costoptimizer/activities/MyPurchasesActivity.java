@@ -1,8 +1,8 @@
 package com.example.costoptimizer.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -11,12 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.costoptimizer.Constants;
 import com.example.costoptimizer.DatabaseHelper;
-import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
-import com.example.costoptimizer.interfaces.OnAdapterItemClickListener;
 import com.example.costoptimizer.adapters.PurchasesAdapter;
+import com.example.costoptimizer.interfaces.OnAdapterItemClickListener;
+import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
@@ -43,11 +42,7 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PurchasesAdapter();
         adapter.listener = this;
-        try {
-            adapter.items = dbHelper.getPurchaseModelDao().queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        adapter.items = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 

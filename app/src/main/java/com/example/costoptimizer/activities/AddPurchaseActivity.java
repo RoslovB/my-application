@@ -75,6 +75,10 @@ public class AddPurchaseActivity extends AppCompatActivity implements View.OnCli
             costET.setText(String.valueOf(purchase.cost));
             countET.setText(String.valueOf(purchase.count));
             importanceSB.setProgress(purchase.importance);
+            ArrayAdapter myAdap = (ArrayAdapter) categoryS.getAdapter(); //cast to an ArrayAdapter
+            int spinnerPosition = myAdap.getPosition(purchase.category);
+
+            categoryS.setSelection(spinnerPosition);
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(purchase.date);
             dateDP.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), null);

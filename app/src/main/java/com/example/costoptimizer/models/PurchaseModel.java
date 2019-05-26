@@ -8,6 +8,7 @@ import java.util.Date;
 
 public class PurchaseModel implements Serializable {
 
+
     @DatabaseField(generatedId = true)
     public Integer id;
 
