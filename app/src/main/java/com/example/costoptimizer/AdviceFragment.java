@@ -1,28 +1,40 @@
 package com.example.costoptimizer;
 
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.costoptimizer.models.Advice;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 
 public class AdviceFragment extends Fragment {
     DatabaseHelper dbHelper;
     TextView adviceTW, descriptionTW;
+    List<PurchaseModel> purchases;
+    List<Advice> advices = new ArrayList<>();
 
     public AdviceFragment() {
         // Required empty public constructor
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,14 +47,22 @@ public class AdviceFragment extends Fragment {
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getAdvice() {
-        List<PurchaseModel> purchases = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
-        PurchaseModel minImportancePurchase = getMinImportancePurchase(purchases);
-        String advice = String.format("Стоит задуматься, нужно ли вам было покупать \"%1$s\"?", minImportancePurchase.name);
-        String adviceDescription = String.format("Товар, с самой низкой важностью для вас является \"%s\",\n" +
-                "и его важность составляет %d, вы могли бы сэкономить %d сом", minImportancePurchase.name, minImportancePurchase.importance, (minImportancePurchase.cost * minImportancePurchase.count));
-        adviceTW.setText(advice);
-        descriptionTW.setText(adviceDescription);
+        purchases = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
+        if (!purchases.isEmpty()) {
+            PurchaseModel maxCostPurchase = getMaxCostPurchase(purchases);
+
+            advices.add(new Advice(String.format("Самой дорогой покупкой для вас является \"%1$s\"", maxCostPurchase.name), String.format("Самой дорогостоющей покупкой для вас является \"%s\",\n" +
+                    "вы купили %d по %d сом. Готовы ли вы были потратить на это %d сом?", maxCostPurchase.name, maxCostPurchase.count, maxCostPurchase.cost, maxCostPurchase.getTotal())));
+
+            PurchaseModel minImportancePurchase = getMinImportancePurchase(purchases);
+            advices.add(new Advice(String.format("Стоит задуматься, нужно ли вам было покупать \"%1$s\"?", minImportancePurchase.name), String.format("Товар, с самой низкой важностью для вас является \"%s\",\n" +
+                    "и его важность составляет %d, вы могли бы сэкономить %d сом", minImportancePurchase.name, minImportancePurchase.importance, minImportancePurchase.getTotal())));
+            setRandomAdvice();
+        } else {
+            adviceTW.setText(getContext().getString(R.string.you_have_not_purchases));
+        }
     }
 
     private PurchaseModel getMinImportancePurchase(List<PurchaseModel> purchases) {
@@ -51,10 +71,26 @@ public class AdviceFragment extends Fragment {
             if (purchase.importance < minimalImportancePurchase.importance)
                 minimalImportancePurchase = purchase;
             else if (purchase.importance == minimalImportancePurchase.importance) {
-                if ((purchase.cost * purchase.count) > (minimalImportancePurchase.cost * minimalImportancePurchase.count))
+                if ((purchase.getTotal()) > (minimalImportancePurchase.cost * minimalImportancePurchase.count))
                     minimalImportancePurchase = purchase;
             }
         }
         return minimalImportancePurchase;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private PurchaseModel getMaxCostPurchase(List<PurchaseModel> purchases) {
+        Collections.sort(purchases, Comparator.comparing(PurchaseModel::getTotal));
+        PurchaseModel maxCostPurchase = purchases.get(purchases.size() - 1);
+        return maxCostPurchase;
+    }
+
+    private void setRandomAdvice() {
+        Random rand = new Random();
+        Advice randomAdvice = advices.get(rand.nextInt(advices.size()));
+        adviceTW.setText(randomAdvice.advice);
+        descriptionTW.setText(randomAdvice.description);
+    }
+
+
 }

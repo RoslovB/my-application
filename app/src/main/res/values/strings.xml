@@ -19,4 +19,5 @@
     <string name="purchase_name">Название покупки</string>
     <string name="cherry_pie">Вишневый пирог</string>
     <string name="set_purchase_date">Укажите дату покупки</string>
+    <string name="you_have_not_purchases">У вас еще нет никаких покупок</string>
 </resources>

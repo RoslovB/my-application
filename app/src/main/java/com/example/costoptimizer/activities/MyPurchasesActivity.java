@@ -116,12 +116,12 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
                     }
                 },
                 new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(View v) {
                         try {
                             dbHelper.getPurchaseModelDao().delete(item);
-                            adapter.items = dbHelper.getPurchaseModelDao().queryForAll();
-                            adapter.notifyDataSetChanged();
+                            inflateRecyclers();
                             Toast.makeText(MyPurchasesActivity.this, "Запись удалена", Toast.LENGTH_SHORT).show();
                         } catch (SQLException e) {
                             e.printStackTrace();

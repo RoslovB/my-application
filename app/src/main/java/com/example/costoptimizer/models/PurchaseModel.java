@@ -53,8 +53,7 @@ public class PurchaseModel implements Serializable {
         this.importance = importance;
     }
 
-
-
-
-
+    public int getTotal() {
+        return this.cost * this.count;
+    }
 }
