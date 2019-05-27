@@ -2,13 +2,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="match_parent"
     tools:context=".AdviceFragment">
 
-    <Button
+    <TextView
+        android:id="@+id/advice_description"
+        android:text="Шампуней было куплено за месяц :42"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Вывод совета"
-        android:textSize="50sp"/>
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/advice_advice"
+        android:textSize="46dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_width="match_parent"
+        android:text="Экономьте на шампунях"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>
