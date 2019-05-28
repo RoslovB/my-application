@@ -23,7 +23,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_my_purchases"
+            android:src="@drawable/ic_buy"
             android:layout_marginRight="20dp"
             />
 
@@ -101,7 +101,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_graph"
+            android:src="@drawable/ic_advice"
             android:layout_marginRight="20dp"
             />
 
