@@ -1,56 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/warmWhite"
     android:orientation="vertical"
+    android:paddingLeft="30dp"
+    android:paddingTop="30dp"
+    android:paddingRight="30dp"
     tools:context=".HomeFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:id="@+id/btn_my_purchases"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_shadowed_white_bg"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-        <Button
-            android:id="@+id/btn_my_purchases"
-            android:layout_width="225dp"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_my_purchases"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:textSize="24sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/my_purchases" />
+            android:text="@string/my_purchases"
+             />
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn_see_diagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_shadowed_white_bg"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-        <Button
-            android:id="@+id/btn_see_diagram"
-            android:layout_width="225dp"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_pie"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:textSize="24sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="8dp"
-            android:text="Посмотреть диаграмму" />
+            android:text="@string/see_diagramm"
+             />
 
-        <Button
-            android:id="@+id/btn_see_graph"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Посмотреть граффик" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn_see_graph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_shadowed_white_bg"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
-        <Button
-            android:id="@+id/btn_advice"
-            android:layout_width="225dp"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_graph"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:textSize="24sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Получить совет" />
+            android:text="@string/see_graph"
+             />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/btn_advice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_shadowed_white_bg"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_graph"
+            android:layout_marginRight="20dp"
+            />
+
+        <TextView
+            android:textSize="24sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_advice"
+             />
 
     </LinearLayout>
 

@@ -20,4 +20,7 @@
     <string name="cherry_pie">Вишневый пирог</string>
     <string name="set_purchase_date">Укажите дату покупки</string>
     <string name="you_have_not_purchases">У вас еще нет никаких покупок</string>
+    <string name="see_diagramm">Посмотреть диаграмму</string>
+    <string name="get_advice">Получить совет</string>
+    <string name="see_graph">Посмотреть график</string>
 </resources>

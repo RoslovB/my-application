@@ -2,21 +2,36 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="10dp"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".AdviceFragment">
 
-    <TextView
-        android:id="@+id/advice_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/advice_advice"
-        android:textSize="46dp"
-        android:textColor="@color/black"
-        android:layout_gravity="center_vertical|center_horizontal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:background="@drawable/white_rounded_bg"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/advice_advice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:layout_marginBottom="20dp"
+            />
+        <TextView
+            android:id="@+id/advice_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_importance_of_purchase" />
+
+    </LinearLayout>
+
 
 </FrameLayout>
