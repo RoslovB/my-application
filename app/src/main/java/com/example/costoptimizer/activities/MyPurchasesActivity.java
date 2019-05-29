@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,7 +63,7 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
         container = findViewById(R.id.purchases_container);
         warningMessage = findViewById(R.id.limit_warning_message);
         try {
-            int moneyLimit = CacheHelper.getMoneyLimit(this);
+            int moneyLimit = CacheHelper.getMonthlyLimit(this);
             int moneySpendForMonth = dbHelper.getPurchaseModelDao().getMoneySpentForMonth();
             if (moneyLimit - moneySpendForMonth <= 0 && moneyLimit != 0) {
                 warningMessage.setText(String.format("Вы превышаете лимит на %d сом", Math.abs(moneyLimit - moneySpendForMonth)));

@@ -1,6 +1,5 @@
 package com.example.costoptimizer;
 
-
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -14,6 +13,7 @@ import com.example.costoptimizer.models.Advice;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,14 +42,18 @@ public class AdviceFragment extends Fragment {
         dbHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
         adviceTW = view.findViewById(R.id.advice_advice);
         descriptionTW = view.findViewById(R.id.advice_description);
-        getAdvice();
+        try {
+            getAdvice();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // Inflate the layout for this fragment
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void getAdvice() {
-        purchases = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
+    private void getAdvice() throws SQLException {
+        purchases = dbHelper.getPurchaseModelDao().getPurchasesForMonth();
         if (!purchases.isEmpty()) {
             PurchaseModel maxCostPurchase = getMaxCostPurchase(purchases);
 
@@ -59,6 +63,14 @@ public class AdviceFragment extends Fragment {
             PurchaseModel minImportancePurchase = getMinImportancePurchase(purchases);
             advices.add(new Advice(String.format("Стоит задуматься, нужно ли вам было покупать \"%1$s\"?", minImportancePurchase.name), String.format("Товар, с самой низкой важностью для вас является \"%s\",\n" +
                     "и его важность составляет %d, вы могли бы сэкономить %d сом", minImportancePurchase.name, minImportancePurchase.importance, minImportancePurchase.getTotal())));
+
+
+            int dailyLimit = CacheHelper.getDailyLimit(getContext());
+            int spentToday = dbHelper.getPurchaseModelDao().getMoneySpentToday();
+            if (dailyLimit > 0 && spentToday > dailyLimit){
+                advices.add(new Advice("Постарайтесь уменьшить дневные расходы, сегодня вы превысили свой лимит", String.format("Вы потратили сегодня %d сом, при установленном вами ежедневном лимите в %d сом, лимит превышен на %d сом", spentToday, dailyLimit, Math.abs(spentToday - dailyLimit))));
+            }
+
             setRandomAdvice();
         } else {
             adviceTW.setText(getContext().getString(R.string.you_have_not_purchases));

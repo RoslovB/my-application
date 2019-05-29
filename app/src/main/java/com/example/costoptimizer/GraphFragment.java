@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,17 +47,21 @@ public class GraphFragment extends Fragment {
         mChart.setAutoScaleMinMaxEnabled(true);
         dbHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
 
-        mChart.setData(getLineData());
+        try {
+            mChart.setData(getLineData());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return view;
 
     }
 
-    private LineData getLineData() {
+    private LineData getLineData() throws SQLException {
         Date referenceDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(referenceDate);
         c.add(Calendar.MONTH, -1);
-        List<PurchaseModel> purchases = dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
+        List<PurchaseModel> purchases = dbHelper.getPurchaseModelDao().getPurchasesForMonth();
 
         ArrayList<Entry> yValue = new ArrayList<>();
         Date current = c.getTime();
@@ -90,7 +95,36 @@ public class GraphFragment extends Fragment {
         set1.setFormSize(15.f);
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);
-
+        dataSets.add(getLimitData());
         return new LineData(dataSets);
     }
+
+    private LineDataSet getLimitData() {
+
+        int dailyLimit = CacheHelper.getDailyLimit(getContext());
+
+        ArrayList<Entry> yValue = new ArrayList<>();
+        if (dailyLimit > 0) {
+            yValue.add(new Entry(0, dailyLimit));
+            yValue.add(new Entry(30, dailyLimit));
+        }
+
+        LineDataSet set1 = new LineDataSet(yValue, "Дневной лимит");
+        set1.setDrawIcons(false);
+        set1.enableDashedLine(10f, 5f, 0f);
+        set1.enableDashedHighlightLine(10f, 5f, 0f);
+        set1.setColor(Color.RED);
+        set1.setCircleColor(Color.RED);
+        set1.setLineWidth(1f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(false);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(true);
+        set1.setFormLineWidth(1f);
+        set1.setFormSize(15.f);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        return set1;
+    }
+
+
 }
