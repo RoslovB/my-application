@@ -23,4 +23,9 @@
     <string name="see_diagramm">Посмотреть диаграмму</string>
     <string name="get_advice">Получить совет</string>
     <string name="see_graph">Посмотреть график</string>
+    <string name="settings">Настройки</string>
+    <string name="save">Сохранить</string>
+    <string name="saved">Сохранено</string>
+    <string name="you_exceed_monthly_limit">Вы превышаете месячный лимит</string>
+    <string name="monthly_limit">Месячный лимит</string>
 </resources>

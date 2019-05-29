@@ -4,12 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".activities.MyPurchasesActivity">
+
+    <TextView
+        android:id="@+id/limit_warning_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:text="@string/you_exceed_monthly_limit"
+        android:textAlignment="center" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <LinearLayout
             android:id="@+id/purchases_container"

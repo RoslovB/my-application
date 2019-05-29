@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.costoptimizer.CacheHelper;
 import com.example.costoptimizer.DatabaseHelper;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.adapters.PurchasesAdapter;
@@ -39,32 +41,50 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
     PurchasesAdapter adapter;
     DatabaseHelper dbHelper;
     ViewGroup container;
+    TextView warningMessage;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_purchases);
+        getSupportActionBar().setTitle(R.string.my_purchases);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
         initUI();
-        inflateRecyclers();
+        try {
+            inflateRecyclers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     private void initUI() {
         container = findViewById(R.id.purchases_container);
+        warningMessage = findViewById(R.id.limit_warning_message);
+        try {
+            int moneyLimit = CacheHelper.getMoneyLimit(this);
+            int moneySpendForMonth = dbHelper.getPurchaseModelDao().getMoneySpentForMonth();
+            if (moneyLimit - moneySpendForMonth <= 0 && moneyLimit != 0) {
+                warningMessage.setText(String.format("Вы превышаете лимит на %d сом", Math.abs(moneyLimit - moneySpendForMonth)));
+                warningMessage.setVisibility(View.VISIBLE);
 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void inflateRecyclers() {
+    private void inflateRecyclers() throws SQLException {
         container.removeAllViews();
         Date referenceDate = new Date();
         Calendar c = Calendar.getInstance();
         Calendar monthAgo = Calendar.getInstance();
         monthAgo.add(Calendar.MONTH, -1);
         c.setTime(referenceDate);
-        ArrayList<PurchaseModel> purchases = (ArrayList<PurchaseModel>) dbHelper.getPurchaseModelRuntimeExceptionDao().queryForAll();
+        ArrayList<PurchaseModel> purchases = (ArrayList<PurchaseModel>) dbHelper.getPurchaseModelDao().getAllPurchases();
         Date current = c.getTime();
 
         while (current.after(monthAgo.getTime())) {
@@ -95,7 +115,11 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onResume() {
-        inflateRecyclers();
+        try {
+            inflateRecyclers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         super.onResume();
     }
 
@@ -146,6 +170,11 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
             startActivity(intent);
             return true;
         }
+        else if (item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.costoptimizer;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.costoptimizer.activities.MyPurchasesActivity;
+import com.example.costoptimizer.activities.SettingsActivity;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
@@ -42,15 +41,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         View btnAdvice = view.findViewById(R.id.btn_advice);
         btnAdvice.setOnClickListener(this);
+
+        View btnSettings = view.findViewById(R.id.btn_settings);
+        btnSettings.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View view) {
-
+        Intent intent;
         switch (view.getId()) {
             case R.id.btn_my_purchases:
-                Intent intent = new Intent(getContext(), MyPurchasesActivity.class);
+                intent = new Intent(getContext(), MyPurchasesActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_see_diagram:
@@ -61,6 +63,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_advice:
                 dbOpListener.dbOpPerformed(6);
+                break;
+            case R.id.btn_settings:
+                intent = new Intent(getContext(), SettingsActivity.class);
+                startActivity(intent);
                 break;
 
         }

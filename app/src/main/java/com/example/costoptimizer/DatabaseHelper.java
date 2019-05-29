@@ -18,7 +18,7 @@ import java.util.List;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public static final String DATABASE_NAME = "cost_optimizer.db";
     public static final int DATABASE_VERSION = 2;
-    private Dao<PurchaseModel, Integer> purchaseModelDao = null;
+    private PurchaseModelDAO purchaseModelDao = null;
     private RuntimeExceptionDao<PurchaseModel, Integer> purchaseModelRuntimeDao = null;
 
 
@@ -46,10 +46,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    //синглтон для GoalDAO
-    public Dao<PurchaseModel, Integer> getPurchaseModelDao() throws SQLException {
+    public PurchaseModelDAO getPurchaseModelDao() throws SQLException {
         if (purchaseModelDao == null) {
-            purchaseModelDao = getDao(PurchaseModel.class);
+            purchaseModelDao = new PurchaseModelDAO(getConnectionSource(), PurchaseModel.class);
         }
         return purchaseModelDao;
     }

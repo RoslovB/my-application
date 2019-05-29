@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-        <activity android:name=".activities.AddPurchaseActivity"></activity>
+        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.AddPurchaseActivity" />
         <activity android:name=".activities.MyPurchasesActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
