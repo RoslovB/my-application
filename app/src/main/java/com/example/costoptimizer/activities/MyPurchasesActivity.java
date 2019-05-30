@@ -81,14 +81,18 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
         Date referenceDate = new Date();
         Calendar c = Calendar.getInstance();
         Calendar monthAgo = Calendar.getInstance();
-        monthAgo.add(Calendar.MONTH, -1);
+        monthAgo.add(Calendar.MONTH, -12);
         c.setTime(referenceDate);
         ArrayList<PurchaseModel> purchases = (ArrayList<PurchaseModel>) dbHelper.getPurchaseModelDao().getAllPurchases();
         Date current = c.getTime();
 
         while (current.after(monthAgo.getTime())) {
             final Date finalCurrent = current;
-            List<PurchaseModel> currentPurchases = purchases.stream().filter(purchase -> purchase.date.getDate() == finalCurrent.getDate()).collect(Collectors.toList());
+            List<PurchaseModel> currentPurchases = purchases.stream()
+                    .filter(purchase ->
+                            purchase.date.getDate() == finalCurrent.getDate()
+                                    && purchase.date.getMonth() == finalCurrent.getMonth())
+                    .collect(Collectors.toList());
             if (!currentPurchases.isEmpty()) {
                 View recyclerItem = getLayoutInflater().inflate(R.layout.purchase_recycler_horizontal, null);
                 container.addView(recyclerItem);
@@ -168,8 +172,7 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
             Intent intent = new Intent(this, AddPurchaseActivity.class);
             startActivity(intent);
             return true;
-        }
-        else if (item.getItemId() == android.R.id.home){
+        } else if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
