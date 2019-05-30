@@ -1,4 +1,4 @@
-package com.example.costoptimizer.activities;
+package com.example.costoptimizer.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;

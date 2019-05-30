@@ -19,6 +19,7 @@ import com.example.costoptimizer.CacheHelper;
 import com.example.costoptimizer.DatabaseHelper;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.adapters.PurchasesAdapter;
+import com.example.costoptimizer.dialogs.CustomDialog;
 import com.example.costoptimizer.interfaces.OnAdapterItemClickListener;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;

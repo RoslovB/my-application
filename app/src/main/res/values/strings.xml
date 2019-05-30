@@ -29,4 +29,13 @@
     <string name="you_exceed_monthly_limit">Вы превышаете месячный лимит</string>
     <string name="monthly_limit">Месячный лимит</string>
     <string name="daily_limit">Ежедневный лимит</string>
+    <string name="food">Еда</string>
+    <string name="fun">Развлечения</string>
+    <string name="clothes">Одежда</string>
+    <string name="sport">Спорт</string>
+    <string name="cosmetics">Косметика</string>
+    <string name="utilites">Коммунальные услуги</string>
+    <string name="internet">Интернет</string>
+    <string name="transport">Транспорт</string>
+    <string name="others">Другие</string>
 </resources>
