@@ -24,7 +24,9 @@ public class PurchaseModelDAO extends BaseDaoImpl<PurchaseModel, Integer> {
 
     public List<PurchaseModel> getPurchasesForMonth() throws SQLException {
         Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
         cal.add(Calendar.MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
         Date monthAgo = cal.getTime();
         QueryBuilder<PurchaseModel, Integer> queryBuilder = queryBuilder();
         queryBuilder.where().ge("date", monthAgo);

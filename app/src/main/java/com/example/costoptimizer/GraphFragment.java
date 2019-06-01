@@ -111,18 +111,18 @@ public class GraphFragment extends Fragment implements OnChartValueSelectedListe
         set1.setFormSize(15.f);
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);
-        dataSets.add(getLimitData());
+        dataSets.add(getLimitData(set1.getXMax()));
         return new LineData(dataSets);
     }
 
-    private LineDataSet getLimitData() {
+    private LineDataSet getLimitData(float maxX) {
 
         int dailyLimit = CacheHelper.getDailyLimit(getContext());
 
         ArrayList<Entry> yValue = new ArrayList<>();
         if (dailyLimit > 0) {
             yValue.add(new Entry(1, dailyLimit));
-            yValue.add(new Entry(30, dailyLimit));
+            yValue.add(new Entry(maxX, dailyLimit));
         }
 
         LineDataSet set1 = new LineDataSet(yValue, "Дневной лимит");
