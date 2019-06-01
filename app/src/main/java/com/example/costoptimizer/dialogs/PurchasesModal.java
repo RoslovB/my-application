@@ -16,7 +16,9 @@ import com.example.costoptimizer.R;
 import com.example.costoptimizer.models.PurchaseCategory;
 import com.example.costoptimizer.models.PurchaseModel;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -32,6 +34,8 @@ public class PurchasesModal {
             // Include dialog.xml file
             dialog.setContentView(R.layout.purchases_modal);
             ViewGroup container = dialog.findViewById(R.id.purchases_modal_container);
+            TextView modalDate = dialog.findViewById(R.id.modal_date);
+            modalDate.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH).format(purchases.get(0).date)  );
 
             for (PurchaseCategory category : PurchaseCategory.values()) {
 

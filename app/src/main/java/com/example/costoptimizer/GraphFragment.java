@@ -62,15 +62,17 @@ public class GraphFragment extends Fragment implements OnChartValueSelectedListe
     }
 
     private LineData getLineData() throws SQLException {
+        List<PurchaseModel> purchases = dbHelper.getPurchaseModelDao().getPurchasesForMonth();
         Date referenceDate = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(referenceDate);
         c.add(Calendar.MONTH, -1);
-        c.add(Calendar.DAY_OF_MONTH, 1);
-        List<PurchaseModel> purchases = dbHelper.getPurchaseModelDao().getPurchasesForMonth();
-
         ArrayList<Entry> yValue = new ArrayList<>();
         Date current = c.getTime();
+        c.setTime(referenceDate);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        referenceDate = c.getTime();
+        int x = 1;
         while (current.before(referenceDate)) {
             int yGraph = 0;
             List<PurchaseModel> entryPurchasesList = new ArrayList<>();
@@ -82,13 +84,14 @@ public class GraphFragment extends Fragment implements OnChartValueSelectedListe
                     yGraph += purchase.cost * purchase.count;
                 }
             }
-            Entry entry = new Entry(current.getDate(), yGraph);
+            Entry entry = new Entry(x, yGraph);
             entry.setData(entryPurchasesList);
             yValue.add(entry);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(current);
             calendar.add(Calendar.DATE, 1);
             current = calendar.getTime();
+            x++;
         }
 
 
@@ -118,7 +121,7 @@ public class GraphFragment extends Fragment implements OnChartValueSelectedListe
 
         ArrayList<Entry> yValue = new ArrayList<>();
         if (dailyLimit > 0) {
-            yValue.add(new Entry(0, dailyLimit));
+            yValue.add(new Entry(1, dailyLimit));
             yValue.add(new Entry(30, dailyLimit));
         }
 
