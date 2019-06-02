@@ -1,8 +1,6 @@
 package com.example.costoptimizer;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +13,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Dictionary;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 
@@ -34,7 +28,6 @@ public class AdviceFragment extends Fragment {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +44,6 @@ public class AdviceFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getAdvice() throws SQLException {
         purchases = dbHelper.getPurchaseModelDao().getPurchasesForMonth();
         if (!purchases.isEmpty()) {
@@ -67,7 +59,7 @@ public class AdviceFragment extends Fragment {
 
             int dailyLimit = CacheHelper.getDailyLimit(getContext());
             int spentToday = dbHelper.getPurchaseModelDao().getMoneySpentToday();
-            if (dailyLimit > 0 && spentToday > dailyLimit){
+            if (dailyLimit > 0 && spentToday > dailyLimit) {
                 advices.add(new Advice("Постарайтесь уменьшить дневные расходы, сегодня вы превысили свой лимит", String.format("Вы потратили сегодня %d сом, при установленном вами ежедневном лимите в %d сом, лимит превышен на %d сом", spentToday, dailyLimit, Math.abs(spentToday - dailyLimit))));
             }
 
@@ -90,10 +82,13 @@ public class AdviceFragment extends Fragment {
         return minimalImportancePurchase;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private PurchaseModel getMaxCostPurchase(List<PurchaseModel> purchases) {
-        Collections.sort(purchases, Comparator.comparing(PurchaseModel::getTotal));
-        PurchaseModel maxCostPurchase = purchases.get(purchases.size() - 1);
+        PurchaseModel maxCostPurchase = purchases.get(0);
+        for (PurchaseModel purchase : purchases) {
+            if (purchase.getTotal() > maxCostPurchase.getTotal()) {
+                maxCostPurchase = purchase;
+            }
+        }
         return maxCostPurchase;
     }
 

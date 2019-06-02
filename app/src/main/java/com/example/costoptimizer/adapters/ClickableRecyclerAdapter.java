@@ -2,8 +2,8 @@ package com.example.costoptimizer.adapters;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.example.costoptimizer.interfaces.ClickableHolderListener;
 import com.example.costoptimizer.adapters.viewholders.ClickableViewHolder;
+import com.example.costoptimizer.interfaces.ClickableHolderListener;
 import com.example.costoptimizer.interfaces.OnAdapterItemClickListener;
 
 import java.util.ArrayList;

@@ -12,14 +12,12 @@ import com.example.costoptimizer.models.PurchaseCategory;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

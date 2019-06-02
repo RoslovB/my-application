@@ -1,9 +1,7 @@
 package com.example.costoptimizer.activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.costoptimizer.CacheHelper;
 import com.example.costoptimizer.DatabaseHelper;
+import com.example.costoptimizer.PurchaseModelDAO;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.adapters.PurchasesAdapter;
 import com.example.costoptimizer.dialogs.CustomDialog;
@@ -31,7 +30,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import static com.example.costoptimizer.Constants.PURCHASE_KEY;
 
@@ -43,7 +41,6 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
     ViewGroup container;
     TextView warningMessage;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +73,6 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void inflateRecyclers() throws SQLException {
         container.removeAllViews();
         Date referenceDate = new Date();
@@ -89,11 +85,7 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
 
         while (current.after(monthAgo.getTime())) {
             final Date finalCurrent = current;
-            List<PurchaseModel> currentPurchases = purchases.stream()
-                    .filter(purchase ->
-                            purchase.date.getDate() == finalCurrent.getDate()
-                                    && purchase.date.getMonth() == finalCurrent.getMonth())
-                    .collect(Collectors.toList());
+            List<PurchaseModel> currentPurchases = PurchaseModelDAO.getPurchasesByDate(purchases, current);
             if (!currentPurchases.isEmpty()) {
                 View recyclerItem = getLayoutInflater().inflate(R.layout.purchase_recycler_horizontal, null);
                 container.addView(recyclerItem);
@@ -116,7 +108,6 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onResume() {
         try {
@@ -144,7 +135,6 @@ public class MyPurchasesActivity extends AppCompatActivity implements OnAdapterI
                     }
                 },
                 new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(View v) {
                         try {

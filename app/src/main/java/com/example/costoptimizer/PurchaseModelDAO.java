@@ -1,5 +1,6 @@
 package com.example.costoptimizer;
 
+import com.example.costoptimizer.models.PurchaseCategory;
 import com.example.costoptimizer.models.PurchaseModel;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -60,5 +61,26 @@ public class PurchaseModelDAO extends BaseDaoImpl<PurchaseModel, Integer> {
             total += purchase.getTotal();
         }
         return total;
+    }
+
+    public static List<PurchaseModel> getPurchasesByDate(List<PurchaseModel> purchases, Date date) {
+        List<PurchaseModel> purchasesOfDate = new ArrayList<>();
+        for (PurchaseModel purchase : purchases) {
+            if (purchase.date.getDate() == date.getDate() &&
+                    purchase.date.getMonth() == date.getMonth()) {
+                purchasesOfDate.add(purchase);
+            }
+        }
+        return purchasesOfDate;
+    }
+
+    public static List<PurchaseModel> getPurchasesByCategory(List<PurchaseModel> purchases, PurchaseCategory category) {
+        List<PurchaseModel> outPurchases = new ArrayList<>();
+        for (PurchaseModel purchase : purchases) {
+            if (purchase.category == category) {
+                outPurchases.add(purchase);
+            }
+        }
+        return outPurchases;
     }
 }

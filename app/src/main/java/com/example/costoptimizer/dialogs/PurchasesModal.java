@@ -1,17 +1,13 @@
 package com.example.costoptimizer.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.costoptimizer.PurchaseModelDAO;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.models.PurchaseCategory;
 import com.example.costoptimizer.models.PurchaseModel;
@@ -19,13 +15,11 @@ import com.example.costoptimizer.models.PurchaseModel;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 
 public class PurchasesModal {
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static void showDialog(FragmentActivity context, List<PurchaseModel> purchases) {
         {
 
@@ -39,9 +33,7 @@ public class PurchasesModal {
 
             for (PurchaseCategory category : PurchaseCategory.values()) {
 
-                List<PurchaseModel> currentPurchases = purchases.stream()
-                        .filter(purchase -> purchase.category == category)
-                        .collect(Collectors.toList());
+                List<PurchaseModel> currentPurchases = PurchaseModelDAO.getPurchasesByCategory(purchases, category);
                 if (currentPurchases.size() != 0) {
 
                     View categoryInfoItem = context.getLayoutInflater().inflate(R.layout.graph_category_item, null);

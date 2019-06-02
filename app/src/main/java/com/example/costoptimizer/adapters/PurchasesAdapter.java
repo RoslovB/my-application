@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.costoptimizer.models.PurchaseModel;
 import com.example.costoptimizer.R;
 import com.example.costoptimizer.adapters.viewholders.PurchaseVH;
+import com.example.costoptimizer.models.PurchaseModel;
 
 
 public class PurchasesAdapter extends ClickableRecyclerAdapter<PurchaseModel, PurchaseVH> {
